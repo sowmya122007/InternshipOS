@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InternshipOS — Find Your Next Opportunity</title>
+<style>
+:root{
+  --bg:#070b14; --panel:#0e1524; --panel2:#111b2e; --text:#f7f9fc;
+  --muted:#9aa8bd; --line:rgba(255,255,255,.09); --accent:#7c5cff;
+  --accent2:#28d7a5; --shadow:0 24px 70px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:
+radial-gradient(circle at 15% 0%,rgba(124,92,255,.18),transparent 28%),
+radial-gradient(circle at 85% 10%,rgba(40,215,165,.10),transparent 24%),var(--bg);
+color:var(--text);min-height:100vh}
+button{font:inherit}
+.app{max-width:1180px;margin:auto;padding:26px 20px 60px}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:8px 0 30px}
+.brand{display:flex;gap:11px;align-items:center;font-weight:800;letter-spacing:-.5px}
+.logo{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+background:linear-gradient(135deg,var(--accent),#a77cff);box-shadow:0 8px 25px rgba(124,92,255,.35)}
+.nav span{color:var(--muted);font-size:13px}
+.screen{display:none;animation:fade .35s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:55px 10px}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border:1px solid var(--line);
+border-radius:999px;background:rgba(255,255,255,.035);color:#cbd5e5;font-size:12px;margin-bottom:24px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 14px var(--accent2)}
+h1{font-size:clamp(42px,7vw,78px);line-height:.98;letter-spacing:-4px;max-width:850px;margin:auto}
+.gradient{background:linear-gradient(90deg,#fff 10%,#a78bfa 55%,#5eead4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:650px;margin:24px auto 34px;color:var(--muted);font-size:17px;line-height:1.7}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{border:0;border-radius:14px;padding:14px 22px;cursor:pointer;font-weight:750;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:linear-gradient(135deg,var(--accent),#9b7cff);color:white;box-shadow:0 12px 30px rgba(124,92,255,.25)}
+.secondary{background:rgba(255,255,255,.05);color:white;border:1px solid var(--line)}
+.topline{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:18px 0 26px}
+.eyebrow{color:#a78bfa;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800;margin-bottom:9px}
+h2{font-size:36px;letter-spacing:-1.8px}
+.sub{color:var(--muted);margin-top:8px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
+border:1px solid var(--line);border-radius:20px;padding:21px;cursor:pointer;transition:.25s;box-shadow:0 10px 35px rgba(0,0,0,.12)}
+.card:hover{transform:translateY(-5px);border-color:rgba(124,92,255,.5);box-shadow:var(--shadow)}
+.city-icon{font-size:30px;margin-bottom:22px}
+.card h3{font-size:20px}.card p{color:var(--muted);font-size:13px;margin-top:7px;line-height:1.5}
+.count{display:inline-block;margin-top:18px;padding:6px 9px;border-radius:8px;background:rgba(124,92,255,.12);color:#c7baff;font-size:11px}
+.back{background:none;border:0;color:#aab7ca;cursor:pointer;margin-bottom:22px;padding:0;font-weight:650}
+.search{width:100%;padding:15px 17px;border-radius:14px;border:1px solid var(--line);outline:none;
+background:rgba(255,255,255,.045);color:white;margin:4px 0 22px}
+.company-card{display:flex;flex-direction:column;min-height:230px}
+.company-logo{width:54px;height:54px;border-radius:15px;background:#fff;color:#111;display:grid;place-items:center;
+font-weight:900;font-size:18px;margin-bottom:28px}
+.company-card .meta{color:#8e9db4;font-size:12px;margin-top:7px}
+.details{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+.detail-main,.detail-side{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:22px;padding:28px}
+.detail-logo{width:74px;height:74px;border-radius:20px;background:#fff;color:#111;display:grid;place-items:center;font-size:25px;font-weight:900;margin-bottom:22px}
+.detail-main h2{font-size:42px}.detail-main p{color:#b0bdd0;line-height:1.75;margin-top:15px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.pill{padding:8px 11px;border-radius:999px;background:rgba(124,92,255,.12);color:#d4ccff;font-size:12px}
+.detail-side h3{font-size:15px;margin-bottom:16px}
+.info{padding:14px 0;border-bottom:1px solid var(--line);color:#aebbd0;font-size:14px}
+.info strong{display:block;color:white;margin-top:4px}
+.motivate{max-width:800px;margin:80px auto;text-align:center;padding:50px 25px}
+.quote{font-size:clamp(30px,5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-2px}
+.motivate p{color:var(--muted);font-size:16px;line-height:1.8;margin:22px auto 30px;max-width:650px}
+.empty{color:var(--muted);padding:40px;text-align:center;border:1px dashed var(--line);border-radius:18px}
+@media(max-width:760px){.details{grid-template-columns:1fr}.topline{align-items:start;flex-direction:column}h1{letter-spacing:-2.5px}.hero{min-height:78vh}.detail-main h2{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="nav">
+    <div class="brand"><div class="logo">✦</div> InternshipOS</div>
+    <span>Your internship discovery dashboard</span>
+  </nav>
+
+  <section id="home" class="screen active">
+    <div class="hero">
+      <div>
+        <div class="badge"><span class="dot"></span> Built for ambitious students</div>
+        <h1>Ready for getting into <span class="gradient">internships?</span></h1>
+        <p>Stop randomly searching. Pick a city, discover major companies, understand what they do, and jump straight to their official career page.</p>
+        <div class="actions">
+          <button class="btn primary" onclick="show('yes')">Yes — let's go →</button>
+          <button class="btn secondary" onclick="show('no')">Not yet</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="no" class="screen">
+    <button class="back" onclick="show('home')">← Back</button>
+    <div class="motivate">
+      <div class="eyebrow">A quick reality check</div>
+      <div class="quote">An internship isn't just a line on your resume. It's proof that you can build outside the classroom.</div>
+      <p>College teaches concepts. Internships show you how those concepts survive deadlines, teams, messy requirements and real users. You don't need to be perfect before applying. Apply, learn, improve, repeat.</p>
+      <button class="btn primary" onclick="show('yes')">Okay, I'm ready now →</button>
+    </div>
+  </section>
+
+  <section id="yes" class="screen">
+    <button class="back" onclick="show('home')">← Dashboard</button>
+    <div class="topline">
+      <div><div class="eyebrow">Step 01</div><h2>Choose a city</h2><p class="sub">Explore major Indian tech hubs and the companies hiring there.</p></div>
+    </div>
+    <div id="cities" class="grid"></div>
+  </section>
+
+  <section id="companies" class="screen">
+    <button class="back" onclick="show('yes')">← Cities</button>
+    <div class="topline">
+      <div><div class="eyebrow">Step 02</div><h2 id="cityTitle">Companies</h2><p class="sub">Pick a company to see its profile and official career portal.</p></div>
+    </div>
+    <input id="search" class="search" placeholder="Search companies..." oninput="renderCompanies()">
+    <div id="companyGrid" class="grid"></div>
+  </section>
+
+  <section id="company" class="screen">
+    <button class="back" onclick="show('companies')">← Companies</button>
+    <div id="companyDetail"></div>
+  </section>
+</div>
+
+<script>
+const data = {
+  "Hyderabad": [
+    ["Microsoft","MS","Technology, cloud, AI and software products.","Software Engineering, AI/ML, Data Science","https://careers.microsoft.com/v2/global/en/students","Redmond-based technology company with a major Hyderabad engineering presence."],
+    ["Amazon","A","E-commerce, cloud computing, devices and digital services.","SDE, Data, Machine Learning, Business Analytics","https://www.amazon.jobs/","Global technology and commerce company with major teams across India."],
+    ["Deloitte","D","Consulting, audit, tax, risk and technology services.","Technology, Analytics, AI, Consulting","https://www.deloitte.com/in/en/careers.html","Professional services organization working across consulting, technology and business transformation."],
+    ["Google","G","Search, cloud, Android, AI and digital products.","Software Engineering, AI/ML, Data","https://www.google.com/about/careers/applications/","Technology company building products and infrastructure used globally."],
+    ["Salesforce","SF","CRM, cloud software and AI-powered enterprise products.","Software, Data, AI, Platform","https://careers.salesforce.com/en/our-locations/asia-pacific/india/","Enterprise software company with a major India talent and innovation hub."],
+    ["ServiceNow","SN","Enterprise workflow, automation and AI platform.","Software Engineering, AI, Cloud","https://careers.servicenow.com/locations/apj/india/","Enterprise software company focused on digital workflows and AI-powered business operations."],
+    ["Oracle","O","Cloud infrastructure, databases and enterprise software.","Cloud, Software, Data, AI","https://www.oracle.com/careers/","Technology company focused on cloud, databases and enterprise applications."],
+    ["Qualcomm","Q","Semiconductors, connectivity and intelligent computing.","AI/ML, Software, Embedded, Hardware","https://www.qualcomm.com/company/careers","Technology company developing chips and platforms for connected and intelligent devices."],
+    ["Accenture","AC","Technology services, consulting and digital transformation.","AI, Data, Technology, Consulting","https://www.accenture.com/in-en/careers","Global professional services company working across technology and business transformation."],
+    ["IBM","IBM","Hybrid cloud, AI, software and enterprise technology.","AI, Data, Software, Cloud","https://www.ibm.com/in-en/careers","Technology company with deep expertise in enterprise computing, cloud and AI."]
+  ],
+  "Bengaluru": [
+    ["Microsoft","MS","Technology, cloud, AI and software products.","Software Engineering, AI/ML, Data Science","https://careers.microsoft.com/v2/global/en/students","Global technology company with a major India engineering ecosystem."],
+    ["Google","G","Search, cloud, Android, AI and digital products.","Software Engineering, AI/ML, Data","https://www.google.com/about/careers/applications/","Technology company building products and infrastructure used globally."],
+    ["Amazon","A","E-commerce, cloud computing, devices and digital services.","SDE, Data, Machine Learning","https://www.amazon.jobs/","Global technology company with extensive engineering teams in Bengaluru."],
+    ["Walmart Global Tech","W","Retail technology, cloud, data and AI.","Software, Data Science, AI/ML","https://careers.walmart.com/","Technology organization building systems and products for Walmart's global business."],
+    ["Adobe","AD","Creative, document and digital experience software.","Software, AI/ML, Data","https://careers.adobe.com/","Software company known for creative, document and digital experience products."],
+    ["Salesforce","SF","CRM, cloud software and AI-powered enterprise products.","Software, Data, AI","https://careers.salesforce.com/en/our-locations/asia-pacific/india/","Enterprise software company with major India engineering teams."],
+    ["Accenture","AC","Technology services, consulting and digital transformation.","AI, Data, Technology, Consulting","https://www.accenture.com/in-en/careers","Global professional services and technology organization."],
+    ["ServiceNow","SN","Enterprise workflow, automation and AI platform.","Software Engineering, AI, Cloud","https://careers.servicenow.com/locations/apj/india/","Enterprise software company building AI-powered workflow solutions."]
+  ],
+  "Chennai": [
+    ["Amazon","A","E-commerce, cloud computing, devices and digital services.","SDE, Data, Machine Learning","https://www.amazon.jobs/","Global technology company with engineering and operations teams in Chennai."],
+    ["Deloitte","D","Consulting, audit, tax, risk and technology services.","Technology, Analytics, AI, Consulting","https://www.deloitte.com/in/en/careers.html","Professional services organization working across consulting and technology."],
+    ["Accenture","AC","Technology services, consulting and digital transformation.","AI, Data, Technology, Consulting","https://www.accenture.com/in-en/careers","Global professional services and technology organization."],
+    ["Cognizant","C","IT services, consulting and digital engineering.","AI, Data, Software, Cloud","https://careers.cognizant.com/","Technology services and consulting company with a large India presence."],
+    ["Zoho","Z","Business software and cloud applications.","Software, Product, Data","https://www.zoho.com/careers/","Product software company building a broad suite of business applications."]
+  ],
+  "Pune": [
+    ["Microsoft","MS","Technology, cloud, AI and software products.","Software Engineering, AI/ML, Data Science","https://careers.microsoft.com/v2/global/en/students","Global technology company with India engineering teams."],
+    ["Google","G","Search, cloud, Android, AI and digital products.","Software Engineering, AI/ML, Data","https://www.google.com/about/careers/applications/","Technology company building products and infrastructure used globally."],
+    ["Accenture","AC","Technology services, consulting and digital transformation.","AI, Data, Technology, Consulting","https://www.accenture.com/in-en/careers","Global professional services and technology organization."],
+    ["IBM","IBM","Hybrid cloud, AI, software and enterprise technology.","AI, Data, Software, Cloud","https://www.ibm.com/in-en/careers","Technology company focused on enterprise technology and AI."],
+    ["Cognizant","C","IT services, consulting and digital engineering.","AI, Data, Software, Cloud","https://careers.cognizant.com/","Technology services and consulting company."]
+  ],
+  "Mumbai": [
+    ["Google","G","Search, cloud, Android, AI and digital products.","Software Engineering, AI/ML, Data","https://www.google.com/about/careers/applications/","Technology company building products and infrastructure used globally."],
+    ["Salesforce","SF","CRM, cloud software and AI-powered enterprise products.","Software, Data, AI","https://careers.salesforce.com/en/our-locations/asia-pacific/india/","Enterprise software company with a major India presence."],
+    ["JPMorgan Chase","JP","Financial services, banking and technology.","Software, Data, Analytics, AI","https://www.jpmorganchase.com/careers","Global financial services company with a large technology organization."],
+    ["Accenture","AC","Technology services, consulting and digital transformation.","AI, Data, Technology, Consulting","https://www.accenture.com/in-en/careers","Global professional services and technology organization."],
+    ["ServiceNow","SN","Enterprise workflow, automation and AI platform.","Software Engineering, AI, Cloud","https://careers.servicenow.com/locations/apj/india/","Enterprise software company focused on workflows and AI."]
+  ],
+  "Vizag": [
+    ["Tech Mahindra","TM","IT services, digital transformation and enterprise technology.","Software, Data, Cloud, AI","https://careers.techmahindra.com/","Indian technology services company with a broad enterprise technology portfolio."],
+    ["Wipro","W","IT services, consulting and digital solutions.","Software, Data, Cloud, AI","https://careers.wipro.com/","Global IT services and consulting company."],
+    ["Infosys","I","IT services, consulting and digital transformation.","Software, Data, AI, Cloud","https://www.infosys.com/careers/","Global technology services and consulting company with a major India footprint."],
+    ["Cognizant","C","IT services, consulting and digital engineering.","AI, Data, Software, Cloud","https://careers.cognizant.com/","Technology services and consulting company."]
+  ],
+  "Delhi NCR": [
+    ["Microsoft","MS","Technology, cloud, AI and software products.","Software Engineering, AI/ML, Data Science","https://careers.microsoft.com/v2/global/en/students","Global technology company with major India operations."],
+    ["Google","G","Search, cloud, Android, AI and digital products.","Software Engineering, AI/ML, Data","https://www.google.com/about/careers/applications/","Technology company building products and infrastructure used globally."],
+    ["Adobe","AD","Creative, document and digital experience software.","Software, AI/ML, Data","https://careers.adobe.com/","Software company known for creative and digital experience products."],
+    ["Deloitte","D","Consulting, audit, tax, risk and technology services.","Technology, Analytics, AI, Consulting","https://www.deloitte.com/in/en/careers.html","Professional services organization working across consulting and technology."],
+    ["IBM","IBM","Hybrid cloud, AI, software and enterprise technology.","AI, Data, Software, Cloud","https://www.ibm.com/in-en/careers","Technology company focused on enterprise technology and AI."]
+  ]
+};
+
+let selectedCity = "";
+let selectedCompany = null;
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function cityCards(){
+  const icons={"Hyderabad":"🌆","Bengaluru":"💻","Chennai":"🌊","Pune":"⚡","Mumbai":"🏙️","Vizag":"🌴","Delhi NCR":"🏛️"};
+  document.getElementById("cities").innerHTML=Object.entries(data).map(([city,companies])=>`
+    <div class="card" onclick="selectCity('${city}')">
+      <div class="city-icon">${icons[city]}</div>
+      <h3>${city}</h3>
+      <p>Explore major companies and career opportunities.</p>
+      <span class="count">${companies.length} companies</span>
+    </div>`).join("");
+}
+function selectCity(city){
+  selectedCity=city;
+  document.getElementById("cityTitle").textContent=city;
+  document.getElementById("search").value="";
+  renderCompanies();
+  show("companies");
+}
+function renderCompanies(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const companies=data[selectedCity].filter(c=>c[0].toLowerCase().includes(q));
+  document.getElementById("companyGrid").innerHTML=companies.length ? companies.map((c,i)=>`
+    <div class="card company-card" onclick="openCompany(${i})">
+      <div class="company-logo">${c[1]}</div>
+      <h3>${c[0]}</h3>
+      <p>${c[2]}</p>
+      <div class="meta">Explore company →</div>
+    </div>`).join("") : `<div class="empty">No company found. Try another search.</div>`;
+}
+function openCompany(i){
+  selectedCompany=data[selectedCity].filter(c=>c[0].toLowerCase().includes(document.getElementById("search").value.toLowerCase()))[i];
+  const c=selectedCompany;
+  document.getElementById("companyDetail").innerHTML=`
+    <div class="details">
+      <div class="detail-main">
+        <div class="detail-logo">${c[1]}</div>
+        <div class="eyebrow">${selectedCity} • Company profile</div>
+        <h2>${c[0]}</h2>
+        <p>${c[5]}</p>
+        <div class="pills">${c[4].includes("microsoft")?'<span class="pill">Student opportunities</span>':''}<span class="pill">${c[3].split(",")[0]}</span><span class="pill">Internships / Early Career</span></div>
+        <br>
+        <a class="btn primary" style="display:inline-block;text-decoration:none;margin-top:20px" href="${c[4]}" target="_blank" rel="noopener">Open official career page ↗</a>
+      </div>
+      <div class="detail-side">
+        <h3>At a glance</h3>
+        <div class="info">📍 Location<strong>${selectedCity}</strong></div>
+        <div class="info">💼 Good areas to explore<strong>${c[3]}</strong></div>
+        <div class="info">🔗 Career portal<strong>Official company website</strong></div>
+        <div class="info">🎯 Your move<strong>Check eligibility + tailor your resume</strong></div>
+      </div>
+    </div>`;
+  show("company");
+}
+cityCards();
+</script>
+</body>
+</html>
